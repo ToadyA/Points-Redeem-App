@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- hints page wherein the mama spider provides hints to her childrens' whereabouts, and where the pen they're held in is located. -->
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,21 @@
 		<a href="index.html">Homepage</a>
 		<a href="rewards.html">Reeem for rewards</a>
 	</nav>
+	<div id="mamaSpider">
+		<img src="assets/spiderMama.png" alt="Mama Spider">
+		<div id="hints">Hints here</div>
+	</div>
+	<img src="assets/spider1.png" class="spider" id="spider1" alt="baby spider">
+	<img src="assets/spider1.png" class="spider" id="spider2" alt="baby spider">
+	<img src="assets/spider2.png" class="spider" id="spider3" alt="baby spider">
 	<div id="pointsDisplay">Current Points: 0</div>
-	<button id="add10">Add 10 Points</button>
-	<button id="add50">Add 50 Points</button>
-	<button id="add5">Add 5 Points</button>
-	<button id="resetP">Reset Points to 0</button>
+	<div id="penContainer">
+		<div id="pen">
+			<img src="assets/pen.png" alt="Pen Itself">
+			<img src="assets/door.png" id="penDoor" alt="Pen Door">
+			<div id="reset">Release the babies</div>
+		</div>
+	</div>
 	<script src="script1.js"></script>
 </body>
 </html>

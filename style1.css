@@ -58,3 +58,49 @@ nav a:hover{
 	position: relative;
 	top: -30%;
 }
+
+#mamaSpider{
+	width: 600px;
+}
+
+#penContainer{
+	margin-top: 20px;
+	position: relative;
+	text-align: center;
+}
+#pen{
+	position: relative;
+	position: inline-block;
+}
+#pen img{
+	width: 600px;
+	position: absolute;
+}
+#penDoor{
+	position: absolute;
+	bottom: -2350%;
+	left: 68%;
+	cursor: pointer;
+	width: 100px !important;
+	height: 80px;
+}
+
+.spider{
+	width: 60px;
+	height: 60px;
+	position: absolute;
+	cursor: pointer;
+	z-index: 1;
+}
+#spider1{
+	top: 10%;
+	left: 60%;
+}
+#spider2{
+	top: 50%;
+	right: 10%;
+}
+#spider3{
+	bottom: 10%;
+	left: 10%;
+}
