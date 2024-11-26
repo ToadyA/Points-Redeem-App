@@ -61,46 +61,46 @@ function resetPoints(){
 }
 
 const homeHints = [
-	"home spider 0: hides if you capture one of its siblings; leave and come back.",
-	"home spider 1: on the Home page somewhere..",
-	"home spider 2: on the Home page somewhere..",
-	"home spider 3: on the Home page somewhere..",
-	"home spider 4: on the Home page somewhere..",
-	"home spider 5: on the Home page somewhere..",
-	"home spider 6: on the Home page somewhere..",
-	"home spider 7: on the Home page somewhere..",
-	"home spider 8: on the Home page somewhere..",
-	"home spider 9: on the Home page somewhere..",
-	"home spider 10: on the Home page somewhere..",
-	"home spider 11: on the Home page somewhere.."
+	"On the Home page Thomas will hide when you grab one of his siblings. Leave and come back.",
+	"Billie is on the Home page, ",
+	"Henrietta is on the Home page, ",
+	"Will is on the Home page, ",
+	"Chris is on the Home page, ",
+	"Queen is on the Home page, ",
+	"Ed is on the Home page, ",
+	"Polly is on the Home page, ",
+	"Amelia is on the Home page, ",
+	"Lliam is on the Home page, ",
+	"Precious is on the Home page, ",
+	"Gordon is on the Home page, "
 ];
 const pointsHints = [
-	"points spider 0: hides if you capture one of its siblings; leave and come back.",
-	"points spider 1: on the Points page somewhere..",
-	"points spider 2: on the Points page somewhere..",
-	"points spider 3: on the Points page somewhere..",
-	"points spider 4: on the Points page somewhere..",
-	"points spider 5: on the Points page somewhere..",
-	"points spider 6: on the Points page somewhere..",
-	"points spider 7: on the Points page somewhere..",
-	"points spider 8: on the Points page somewhere..",
-	"points spider 9: on the Points page somewhere..",
-	"points spider 10: on the Points page somewhere..",
-	"points spider 11: on the Points page somewhere.."
+	"On this page Elanor will hide when you grab one of her siblings. Leave and come back.",
+	"Dave is on this page, resting on my back.",
+	"Ann is on this page, roaming near the pen below.",
+	"Rudy is on this page, exploring the pen below.",
+	"Clyde is on this page, roaming nearby.",
+	"Olive is on this page, hiding within the pen below. She's a troublemaker.",
+	"Beatrice is on this page, right in front of me.",
+	"Kevin is on this page, hiding in the corner.",
+	"Zackiyah is on this page, leaning on my leg",
+	"Xavier is on this page, exploring the pen below.",
+	"Vincent is on this page, exploring the pen below.",
+	"Trish is on this page, roaming near the pen below."
 ];
 const rewardsHints = [
-	"rewards spider 0: hides if you capture one of its siblings; leave and come back.",
-	"rewards spider 1: on the Rewards page somewhere..",
-	"rewards spider 2: on the Rewards page somewhere..",
-	"rewards spider 3: on the Rewards page somewhere..",
-	"rewards spider 4: on the Rewards page somewhere..",
-	"rewards spider 5: on the Rewards page somewhere..",
-	"rewards spider 6: on the Rewards page somewhere..",
-	"rewards spider 7: on the Rewards page somewhere..",
-	"rewards spider 8: on the Rewards page somewhere..",
-	"rewards spider 9: on the Rewards page somewhere..",
-	"rewards spider 10: on the Rewards page somewhere...",
-	"rewards spider 11: on the Rewards page somewhere..."
+	"On the Rewards page Drake will hide when you grab one of his siblings. Leave and come back.",
+	"Eve is on the Rewards page, running the store. If you click her, you can no longer purchase anything.",
+	"Tony is on the Rewards page, ",
+	"Crystal is on the Rewards page, ",
+	"Dorris is on the Rewards page, ",
+	"Ryan is on the Rewards page, ",
+	"Thelma is on the Rewards page, ",
+	"Val is on the Rewards page, ",
+	"Owen is on the Rewards page, ",
+	"Helga is on the Rewards page, ",
+	"Prince is on the Rewards page, ",
+	"Freddie is on the Rewards page, "
 ];
 const thanks = [
 	"They are all so precious, aren't they?.",
@@ -152,6 +152,22 @@ function spiderReset(){
 	document.querySelectorAll('.spider').forEach(spider =>{
 		spider.style.display = 'block';
 	});
+	const shopItems = document.querySelectorAll('.shopItem');
+	shopItems.forEach(item =>{
+		item.style.pointerEvents = 'auto';
+		item.style.opacity = '1';
+		item.style.display = 'block';
+	});
+	const speechBubble = document.getElementById('speechBubble');
+	if(speechBubble){
+		speechBubble.style.opacity = '1';
+		speechBubble.style.display = 'block';
+	}
+	const shopDialogue = document.getElementById('shopDialogue');
+	if(shopDialogue){
+		shopDialogue.textContent = 'Come buy something, yo!';
+	}
+	localStorage.removeItem('shopDisabled');
 	console.log('All of the spiders are out again, everywhere!');
 }
 
@@ -180,7 +196,7 @@ if(penDoor){
 document.querySelectorAll('.spider').forEach(spider =>{
 	const spiderStatus = localStorage.getItem(spider.id);
 	if(spiderStatus === "clicked"){
-		spider.style.display = "none";
+		spider.style.display = 'none';
 	}
 	spider.addEventListener('click', function(){
 		if(this.style.display != 'none'){
@@ -209,22 +225,25 @@ document.querySelectorAll('.spider').forEach(spider =>{
 	});
 });
 
-function unlockLink(){
+function unlockItem(itemId, pointsReq){
 	const points = parseInt(localStorage.getItem('points'), 10);
-	if(points >= 170){
-		localStorage.setItem('points', points - 170);
-		localStorage.setItem('linkUnlocked', 'true');
-		updatePointsDisplay();
-		document.getElementById('unlockMessage').textContent = "Link to Minigames unlocked!";
+	if(points >= pointsReq){
+		localStorage.setItem(itemId, 'true');
+		document.getElementById('unlockMessage').textContent = `${itemId} unlocked!`;
 	}
 	else{
 		document.getElementById('unlockMessage').textContent = "Not enough points.";
 	}
 }
+
 const unlockMinigames = document.getElementById('unlockMinigames');
 if(unlockMinigames){
-	unlockMinigames.addEventListener('click', unlockLink);
+	unlockMinigames.addEventListener('click', () => unlockItem('linkUnlocked', 170));
 }
+const shopItems = document.querySelectorAll('.shopItem');
+shopItems.forEach(item =>{
+	item.addEventListener('click', () => unlockItem(item.id, 210));
+});
 
 function displayLink(){
 	const linkUnlocked = localStorage.getItem('linkUnlocked');
@@ -236,11 +255,51 @@ function displayLink(){
 		nav.appendChild(minigamesLink);
 	}
 }
+function displayUnlockedItems(){
+	const items = ['shopLock1, shopLock2, shopLock3, shopLock4, shopLock5'];
+	items.forEach(item =>{
+		if(localStorage.getItem(item) === 'true'){
+			document.getElementById(item).style.display = 'none';
+		}
+	});
+}
+
+function disableShop(){
+	const shopItems = document.querySelectorAll('.shop-item');
+	shopItems.forEach(item =>{
+		item.style.pointerEvents = 'none';
+		item.style.opacity = '0';
+		item.style.transition = 'opacity 0.5s';
+	});
+	const speechBubble = document.getElementById('speechBubble');
+	if(speechBubble){
+		speechBubble.style.opacity = '0';
+		speechBubble.style.transition = 'opacity 0.5s';
+	}
+	localStorage.setItem('shopDisabled', 'true');
+}
+
+const spiderR1 = document.getElementById('spiderR1');
+if(spiderR1){
+	spiderR1.addEventListener('click', () => {
+		document.getElementById('shopDialogue').textContent = 'eek!';
+		disableShop();
+		spiderR1.style.display = 'none';
+	});
+}
 
 document.addEventListener('DOMContentLoaded', () =>{
 	updatePointsDisplay();
 	updateProgress();
 	displayLink();
+	displayUnlockedItems();
+	const speechBubble = document.getElementById('speechBubble');
+	if(localStorage.getItem('shopDisabled') === 'true'){
+		disableShop();
+	}
+	else{
+		speechBubble.style.display = 'block';
+	}
 	console.log('DOMContentLoaded event triggered');
 });
 if(window.location.pathname.endsWith('rewards.html')){
